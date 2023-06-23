@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ingubook.mapper.BorrowHistoryMapper">
+    <insert id="save" parameterType="com.ingubook.domain.BorrowHistoryDTO">
+        INSERT INTO borrow_history
+            (book_id, user_id, borrow_date,due_date, created_date, status)
+        VALUES
+            (#{bookId}, #{userId}, #{borrowDate}, #{dueDate}, #{createdDate}, #{status});
+    </insert>
+
+    <select id="findAll" resultType="com.ingubook.domain.BorrowHistoryVO">
+        SELECT
+            *
+        FROM
+            borrow_history
+    </select>
+
+    <select id="findById" resultType="com.ingubook.domain.BorrowHistoryVO">
+        SELECT
+            *
+        FROM
+            borrow_history
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="findByBookId" resultType="com.ingubook.domain.BorrowHistoryVO">
+        SELECT
+            *
+        FROM
+            borrow_history
+        WHERE
+            book_id = #{bookId}
+    </select>
+
+    <select id="findByUserId" resultType="com.ingubook.domain.BorrowHistoryVO">
+        SELECT
+            *
+        FROM
+            borrow_history
+        WHERE
+            user_id = #{userId}
+    </select>
+
+    <update id="updateStatusById">
+        UPDATE borrow_history
+        SET
+            modified_date = #{modifiedDate},
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateDueDateById">
+        UPDATE borrow_history
+        SET
+            modified_date = #{modifiedDate},
+            due_date = #{dueDate}
+        WHERE
+            id = #{id}
+    </update>
+</mapper>

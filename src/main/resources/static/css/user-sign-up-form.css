@@ -1,0 +1,45 @@
+nav{
+    font-size: 15px;
+}
+#sign-form{
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+
+    width: 75%;
+    min-width: 500px;
+    padding: 1% 1%;
+
+    border: black solid 1px;
+
+    background-color: #fff;
+
+}
+#sign-form .title{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2em;
+}
+#sign-form .input{
+    display: flex;
+
+    margin: 15px 0;
+
+    font-size: 1em;
+}
+#sign-form .input label{
+    margin: 0 1em 0 0;
+
+    width: 100px;
+}
+#sign-form .input input{
+    margin: 0 1em 0 0;
+
+    width: 320px;
+}
+#sign-form .input span{
+    margin: 0 1em 0 0;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ingubook.mapper.UserMapper">
+    <insert id="save" parameterType="com.ingubook.domain.UserDTO">
+        INSERT INTO user
+            (name, login_id, password, phone_number, created_date, status)
+        VALUES
+            (#{name}, #{loginId}, #{password}, #{phoneNumber},#{createdDate}, #{status});
+    </insert>
+
+    <select id="findAll" resultType="com.ingubook.domain.UserVO">
+        SELECT
+            *
+        FROM
+            user
+    </select>
+
+    <select id="findById" resultType="com.ingubook.domain.UserVO">
+        SELECT
+            *
+        FROM
+            user
+        WHERE
+            id = #{id}
+    </select>
+
+    <select id="findByLoginId" resultType="com.ingubook.domain.UserVO">
+        SELECT
+            *
+        FROM
+            user
+        WHERE
+            login_id = #{loginId}
+    </select>
+
+    <select id="findByPhoneNumber" resultType="com.ingubook.domain.UserVO">
+        SELECT
+            *
+        FROM
+            user
+        WHERE
+            phone_number = #{phoneNumber}
+    </select>
+
+    <update id="updateStatusById">
+        UPDATE user
+        SET
+            modified_date = #{modifiedDate},
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+</mapper>

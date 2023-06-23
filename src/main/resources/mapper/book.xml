@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ingubook.mapper.BookMapper">
+    <insert id="save" parameterType="com.ingubook.domain.BookDTO">
+        INSERT INTO book
+        (isbn, title, authors, publisher, translators, price, info, publication_date, thumbnail, created_date, status)
+        VALUES
+            (#{isbn}, #{title}, #{authors}, #{publisher}, #{translators}, #{price}, #{info}, #{publicationDate}, #{thumbnail}, #{createdDate}, #{status})
+    </insert>
+
+    <select id="findAll" resultType="com.ingubook.domain.BookVO">
+        SELECT
+            *
+        FROM
+            book
+    </select>
+    <select id="findById" resultType="com.ingubook.domain.BookVO">
+        SELECT
+            *
+        FROM
+            book
+        WHERE
+            id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.ingubook.domain.BookDTO">
+        UPDATE book
+        SET 
+            isbn = #{isbn},
+            title = #{title},
+            authors = #{authors},
+            publisher = #{publisher},
+            translators = #{translators},
+            price = #{price},
+            info = #{info},
+            thumbnail = #{thumbnail},
+            modified_date = #{modifiedDate},
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateStatusById">
+        UPDATE book
+        SET
+            modified_date = #{modifiedDate},
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+</mapper>
