@@ -1,4 +1,5 @@
 $(()=>{
+    $("")
     $("#idCheck").on({
         click : function (){
             let loninId = $(".loginId").val();
@@ -16,11 +17,7 @@ $(()=>{
     })
     $("#signUp").on({
         click : function () {
-            let messages = Array();
 
-            messages.push();
-
-            alert(messages.toString());
         }
     })
 })
@@ -32,11 +29,12 @@ var checkDuplicateId = function(loninId){
         data:{
             'loginId' : loninId
         },
-        error: function () {
-            alert("중복된 ID가 있습니다.")
+        error: function (msg) {
+            alert(msg.toString())
         },
-        success: function () {
-
+        success: function (msg) {
+            alert(msg)
+            $("#idCheckValue").attr("value", true)
         }
     });
 }
@@ -47,11 +45,11 @@ var checkDuplicatePhoneNumber = function(phoneNumber) {
         data:{
             'loginId' : phoneNumber
         },
-        error: function () {
-            alert("이미 가입한 번호입니다.")
+        error: function (msg) {
+            alert(msg)
         },
-        success: function () {
-
+        success: function (msg) {
+            alert(msg)
         }
     });
 }

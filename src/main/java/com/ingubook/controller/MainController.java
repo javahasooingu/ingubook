@@ -1,6 +1,6 @@
 package com.ingubook.controller;
 
-import com.ingubook.service.BookSearchService;
+import com.ingubook.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
 
-    private final BookSearchService bookSearchService;
+    private final BookService bookService;
 
     @GetMapping
     public String showHome() {

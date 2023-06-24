@@ -1,8 +1,7 @@
 package com.ingubook.service;
 
 
-import com.ingubook.domain.UserDTO;
-import com.ingubook.domain.UserVO;
+import com.ingubook.dto.User;
 import com.ingubook.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,19 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public List<UserVO> findAll(){
+    public List<User> findAll(){
 
         return userMapper.findAll();
     }
 
-    public UserVO findById(Long id) throws IllegalArgumentException{
+    public User findById(Long id) throws IllegalArgumentException{
 
         return Optional.ofNullable(userMapper.findById(id)).orElseThrow(IllegalArgumentException::new);
+    }
+
+    public User findByLoginId(String loginId) throws IllegalArgumentException{
+
+        return Optional.ofNullable(userMapper.findByLoginId(loginId)).orElseThrow(IllegalArgumentException::new);
     }
 
     public void updateStatusById(Long id, String status) throws IllegalArgumentException{

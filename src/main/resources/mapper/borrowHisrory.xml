@@ -5,21 +5,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ingubook.mapper.BorrowHistoryMapper">
-    <insert id="save" parameterType="com.ingubook.domain.BorrowHistoryDTO">
+    <insert id="save" parameterType="com.ingubook.dto.BorrowHistoryRegister">
         INSERT INTO borrow_history
-            (book_id, user_id, borrow_date,due_date, created_date, status)
+            (book_id, user_id, borrow_date, due_date, created_date, status)
         VALUES
             (#{bookId}, #{userId}, #{borrowDate}, #{dueDate}, #{createdDate}, #{status});
     </insert>
 
-    <select id="findAll" resultType="com.ingubook.domain.BorrowHistoryVO">
+    <select id="findAll" resultType="com.ingubook.dto.BorrowHistory">
         SELECT
             *
         FROM
             borrow_history
     </select>
 
-    <select id="findById" resultType="com.ingubook.domain.BorrowHistoryVO">
+    <select id="findById" resultType="com.ingubook.dto.BorrowHistory">
         SELECT
             *
         FROM
@@ -28,7 +28,7 @@
             id = #{id}
     </select>
 
-    <select id="findByBookId" resultType="com.ingubook.domain.BorrowHistoryVO">
+    <select id="findAllByBookId" resultType="com.ingubook.dto.BorrowHistory">
         SELECT
             *
         FROM
@@ -37,7 +37,20 @@
             book_id = #{bookId}
     </select>
 
-    <select id="findByUserId" resultType="com.ingubook.domain.BorrowHistoryVO">
+    <select id="findByBookIdOderByColumnNameAndOrderValue" resultType="com.ingubook.dto.BorrowHistory">
+        SELECT
+            *
+        FROM
+            borrow_history
+        WHERE
+            book_id = #{bookId}
+        ORDER BY
+            #{columnName} #{orderName}
+        LIMIT
+            1
+    </select>
+
+    <select id="findAllByUserId" resultType="com.ingubook.dto.BorrowHistory">
         SELECT
             *
         FROM
@@ -46,21 +59,14 @@
             user_id = #{userId}
     </select>
 
-    <update id="updateStatusById">
+    <update id="update">
         UPDATE borrow_history
         SET
+            return_date  = #{returnDate},
             modified_date = #{modifiedDate},
             status = #{status}
         WHERE
             id = #{id}
     </update>
 
-    <update id="updateDueDateById">
-        UPDATE borrow_history
-        SET
-            modified_date = #{modifiedDate},
-            due_date = #{dueDate}
-        WHERE
-            id = #{id}
-    </update>
 </mapper>

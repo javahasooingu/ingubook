@@ -1,11 +1,11 @@
-package com.ingubook.domain;
+package com.ingubook.dto;
 
 import lombok.Value;
 
 import java.time.LocalDateTime;
 
 @Value
-public class BookVO {
+public class Book {
     Long id; // 식별자
     String isbn; // 도서번호
     String title; // 제목
@@ -15,8 +15,7 @@ public class BookVO {
     Long price; // 가격
     String info; // 도서소개
     LocalDateTime publicationDate; // 발간일
-    String thumbnail; // 도서표지좌표
     LocalDateTime createdDate; // 등록일
     LocalDateTime modifiedDate; // 수정일
-    String status; // 상태 => 대출불가능, 대출가능
+    String status; // 상태 => 대출중, 대출가능
 }

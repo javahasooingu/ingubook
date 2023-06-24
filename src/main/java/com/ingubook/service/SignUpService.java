@@ -1,7 +1,6 @@
 package com.ingubook.service;
 
-import com.ingubook.domain.UserDTO;
-import com.ingubook.domain.UserVO;
+import com.ingubook.dto.UserSignUpRequest;
 import com.ingubook.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,24 +15,37 @@ public class SignUpService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public Boolean checkDuplicateLoginId(String loginId){
+    public void signUp(UserSignUpRequest user) throws IllegalArgumentException{
 
-        return Optional.ofNullable(userMapper.findByLoginId(loginId)).isPresent();
-    }
-
-    public Boolean checkDuplicatePhoneNumber(String phoneNumber){
-
-        return Optional.ofNullable(userMapper.findByLoginId(phoneNumber)).isPresent();
-    }
-
-    public void signUp(UserDTO user){
+        checkDuplicateLoginId(user.getLoginId());
+        checkDuplicatePhoneNumber(user.getPhoneNumber());
 
         encodePassword(user);
 
         userMapper.save(user);
     }
 
-    private void encodePassword(UserDTO user) {
+    public void checkDuplicateLoginId(String loginId){
+
+        Optional.ofNullable(userMapper.findByLoginId(loginId))
+                .ifPresent(
+                        (userVO)->{
+                            throw new IllegalArgumentException();
+                        }
+                );
+    }
+
+    public void checkDuplicatePhoneNumber(String phoneNumber) {
+
+        Optional.ofNullable(userMapper.findByPhoneNumber(phoneNumber))
+                .ifPresent(
+                        (userVO)->{
+                            throw new IllegalArgumentException();
+                        }
+                );
+    }
+
+    private void encodePassword(UserSignUpRequest user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
 
         user.setPassword(encodedPassword);

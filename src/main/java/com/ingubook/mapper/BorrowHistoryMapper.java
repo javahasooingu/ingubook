@@ -1,8 +1,8 @@
 package com.ingubook.mapper;
 
-import com.ingubook.domain.BookVO;
-import com.ingubook.domain.BorrowHistoryDTO;
-import com.ingubook.domain.BorrowHistoryVO;
+import com.ingubook.dto.BorrowHistoryModify;
+import com.ingubook.dto.BorrowHistoryRegister;
+import com.ingubook.dto.BorrowHistory;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,11 +12,11 @@ import java.util.List;
 @Mapper
 public interface BorrowHistoryMapper {
 
-    void save(BorrowHistoryDTO borrowHistoryDto);
-    List<BorrowHistoryVO> findAll();
-    BorrowHistoryVO findById(@Param("id") Long id);
-    List<BorrowHistoryVO> findByBookId(@Param("bookId") Long bookId);
-    List<BorrowHistoryVO> findByUserId(@Param("userId") Long userId);
-    void updateStatusById(@Param("id") Long id, @Param("status") String status, @Param("modifiedDate") LocalDateTime modifiedDate);
-    void updateDueDateById(@Param("id") Long id, @Param("dueDate") LocalDateTime dueDate, @Param("modifiedDate") LocalDateTime modifiedDate);
+    void save(BorrowHistoryRegister borrowHistory);
+    List<BorrowHistory> findAll();
+    BorrowHistory findById(@Param("id") Long id);
+    List<BorrowHistory> findAllByBookId(@Param("bookId") Long bookId);
+    BorrowHistory findByBookIdOderByColumnNameAndOrderValue(@Param("bookId") Long bookId, @Param("columnName") String columnName, @Param("orderValue") String orderValue);
+    List<BorrowHistory> findAllByUserId(@Param("userId") Long userId);
+    void update(BorrowHistoryModify history);
 }

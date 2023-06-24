@@ -5,20 +5,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ingubook.mapper.BookMapper">
-    <insert id="save" parameterType="com.ingubook.domain.BookDTO">
+    <insert id="save" parameterType="com.ingubook.dto.BookRegisterRequest">
         INSERT INTO book
-        (isbn, title, authors, publisher, translators, price, info, publication_date, thumbnail, created_date, status)
+        (isbn, title, authors, publisher, translators, price, info, publication_date, created_date, status)
         VALUES
-            (#{isbn}, #{title}, #{authors}, #{publisher}, #{translators}, #{price}, #{info}, #{publicationDate}, #{thumbnail}, #{createdDate}, #{status})
+            (#{isbn}, #{title}, #{authors}, #{publisher}, #{translators}, #{price}, #{info}, #{publicationDate}, #{createdDate}, #{status})
     </insert>
 
-    <select id="findAll" resultType="com.ingubook.domain.BookVO">
+    <select id="findAll" resultType="com.ingubook.dto.Book">
         SELECT
             *
         FROM
             book
     </select>
-    <select id="findById" resultType="com.ingubook.domain.BookVO">
+
+    <select id="findById" resultType="com.ingubook.dto.Book">
         SELECT
             *
         FROM
@@ -27,7 +28,16 @@
             id = #{id}
     </select>
 
-    <update id="update" parameterType="com.ingubook.domain.BookDTO">
+    <select id="findByIsbn" resultType="com.ingubook.dto.Book">
+        SELECT
+            *
+        FROM
+            book
+        WHERE
+            isbn = #{isbn}
+    </select>
+
+    <update id="update" parameterType="com.ingubook.dto.BookRegisterRequest">
         UPDATE book
         SET 
             isbn = #{isbn},
@@ -37,7 +47,7 @@
             translators = #{translators},
             price = #{price},
             info = #{info},
-            thumbnail = #{thumbnail},
+            publication_date = #{publicationDate},
             modified_date = #{modifiedDate},
             status = #{status}
         WHERE

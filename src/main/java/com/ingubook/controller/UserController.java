@@ -1,6 +1,9 @@
 package com.ingubook.controller;
 
-import com.ingubook.service.BookSearchService;
+import com.ingubook.dto.UserSignUpRequest;
+import com.ingubook.service.BookService;
+import com.ingubook.service.SignUpService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
-    private final BookSearchService bookSearchService;
+    private final SignUpService signUpService;
 
     @GetMapping("")
     public String showUserPage(){
@@ -28,21 +31,16 @@ public class UserController {
     }
 
     @PostMapping("/sing-up")
-    public ResponseEntity<String> signUp() {
+    public ResponseEntity<String> signUp(@Valid UserSignUpRequest user) {
+        try {
 
-        return new ResponseEntity("success", HttpStatus.OK);
-    }
+            signUpService.signUp(user);
 
-    @PostMapping("/id-check")
-    public ResponseEntity<String> checkDuplicateId() {
-        log.info("ID 중복확인");
+        }catch (IllegalArgumentException e){
 
-        return new ResponseEntity("success", HttpStatus.OK);
-    }
+            return new ResponseEntity<>("입력값을 확인해주세요.", HttpStatus.BAD_REQUEST);
+        }
 
-    @PostMapping("/phone-check")
-    public ResponseEntity<String> checkDuplicatePhoneNumber() {
-        log.info("PHONE 중복확인");
 
         return new ResponseEntity("success", HttpStatus.OK);
     }

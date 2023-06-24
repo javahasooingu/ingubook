@@ -22,6 +22,7 @@
                 <input class = "loginId" type="text" name="loginId" placeholder="사용하려는 아이디를 입력해주세요." autofocus>
                 <span>
                     <button type="button" id="idCheck">중복확인</button>
+                    <input type="hidden" id="idCheckValue" name="idCheck" value="false">
                 </span>
                 <span class="errMsg"></span>
             </div>
@@ -32,6 +33,11 @@
             <div class="input">
                 <label >비밀번호 확인</label>
                 <input class = "passwordConfirm" type="password" placeholder="다시한번 비밀번호를 입력해주세요.">
+                <span>
+                    <button type="button" id="passwordCheck">비밀번호 확인</button>
+                    <input type="hidden" id="passwordCheckValue" name="passwordCheck" value="false">
+                </span>
+                <span class="errMsg"></span>
             </div>
             <div class="input">
                 <label for="name">이름</label>
