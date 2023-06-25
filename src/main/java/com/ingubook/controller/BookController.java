@@ -77,8 +77,14 @@ public class BookController {
 
     @PatchMapping("/{id}/modify")
     public ResponseEntity<String> modify(@Valid BookModifyRequest book) {
+        try{
 
-        bookService.modify(book);
+            bookService.modify(book);
+
+        }catch (IllegalArgumentException e){
+
+            return new ResponseEntity<>("입력값을 확인해주세요.", HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity("success", HttpStatus.CREATED);
     }
@@ -91,7 +97,7 @@ public class BookController {
 
         }catch (IllegalArgumentException e){
 
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("입력값을 확인해주세요.",HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity(bookBorrowService.findAllHistoryByBookId(id), HttpStatus.OK);
@@ -100,12 +106,18 @@ public class BookController {
     @Transactional
     @PostMapping("/{id}/borrow")
     public ResponseEntity<String> registerByIdAndUserLoginId(@PathVariable("id") Long id, @RequestParam("userLoginId") String userLoginId) {
+        try {
 
-        Long userId = userService.findByLoginId(userLoginId).getId();
+            Long userId = userService.findByLoginId(userLoginId).getId();
 
-        bookBorrowService.borrowByBookIdAndUserId(id, userId);
-        bookService.updateStatusById(id, "on_borrow");
-        userService.updateStatusById(userId,"on_borrow");
+            bookBorrowService.borrowByBookIdAndUserId(id, userId);
+            bookService.updateStatusById(id, "on_borrow");
+            userService.updateStatusById(userId,"on_borrow");
+
+        }catch (IllegalArgumentException e){
+
+            return new ResponseEntity("입력값을 확인해주세요.",HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
@@ -113,12 +125,18 @@ public class BookController {
     @Transactional
     @PatchMapping("/{id}/return")
     public ResponseEntity<String> modifyById(@PathVariable("id") Long id) {
+        try {
 
-        BorrowHistory history = bookBorrowService.findOneHistoryByBookIdOrderByCreatedDateDCES(id);
+            BorrowHistory history = bookBorrowService.findOneHistoryByBookIdOrderByCreatedDateDCES(id);
 
-        bookBorrowService.returnByBorrowId(history.getId());
-        bookService.updateStatusById(history.getBookId(), "available");
-        userService.updateStatusById(history.getUserId(),"available");
+            bookBorrowService.returnByBorrowId(history.getId());
+            bookService.updateStatusById(history.getBookId(), "available");
+            userService.updateStatusById(history.getUserId(),"available");
+
+        }catch (IllegalArgumentException e){
+
+            return new ResponseEntity("입력값을 확인해주세요.",HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
