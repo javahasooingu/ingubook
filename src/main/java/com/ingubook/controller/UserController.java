@@ -46,10 +46,4 @@ public class UserController {
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
-
-    @GetMapping("/return-list")
-    public String showReturnBooks(){
-
-        return "user/retrun-book-list";
-    }
 }

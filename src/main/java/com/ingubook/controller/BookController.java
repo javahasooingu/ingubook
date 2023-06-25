@@ -37,14 +37,6 @@ public class BookController {
         return "book/list";
     }
 
-    @GetMapping("/{id}")
-    public String showDetailById(@PathVariable("id") Long id, Model model){
-
-        model.addAttribute("book", bookService.findById(id));
-
-        return "book/detail";
-    }
-
     @GetMapping("/register")
     public String showRegisterForm(Model model){
 
@@ -65,6 +57,14 @@ public class BookController {
         }
 
         return new ResponseEntity("success", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public String showDetailById(@PathVariable("id") Long id, Model model){
+
+        model.addAttribute("book", bookService.findById(id));
+
+        return "book/detail";
     }
 
     @GetMapping("/{id}/modify")
